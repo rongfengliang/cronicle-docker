@@ -1,0 +1,7 @@
+version: "3"
+services:
+  cronicle:
+      build: ./
+      image:  dalongrong/cronicle
+      ports:
+      - "3012:3012"

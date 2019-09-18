@@ -1,19 +1,36 @@
 version: "3"
-services:
+services:  
+  s3:
+      image: minio/minio
+      command: server /data
+      ports: 
+      - "9000:9000"
+      environment:
+      - "MINIO_ACCESS_KEY=dalongapp"
+      - "MINIO_SECRET_KEY=dalongapp"
+      volumes: 
+      - "./data:/data" 
   cronicle:
       build: ./
+      hostname: master
       image:  dalongrong/cronicle
+      volumes:
+      - "./config.json:/opt/cronicle/conf/config.json"
       ports:
       - "3012:3012"
   cronicle2:
       build: ./
       hostname: cronicle2
       image:  dalongrong/cronicle
+      volumes:
+      - "./config.json:/opt/cronicle/conf/config.json"
       ports:
       - "3013:3012"
   cronicle3:
       build: ./
       hostname: cronicle3
       image:  dalongrong/cronicle
+      volumes:
+      - "./config.json:/opt/cronicle/conf/config.json"
       ports:
       - "3014:3012"
